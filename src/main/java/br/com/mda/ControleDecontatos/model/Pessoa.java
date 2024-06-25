@@ -1,8 +1,14 @@
 package br.com.mda.ControleDecontatos.model;
 
-public class Pessoa {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tb_pessoa")
+public class Pessoa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
     private String endereco;
     private String CEP;

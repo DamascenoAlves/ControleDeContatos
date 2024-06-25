@@ -1,12 +1,19 @@
 package br.com.mda.ControleDecontatos.model;
 
 import br.com.mda.ControleDecontatos.model.enums.TipoContato;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name= "tb_contato")
 public class Contato {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private TipoContato tipoContato;
+    @Column(nullable = false)
     private String contato;
+
 
     public Contato() {
     }
