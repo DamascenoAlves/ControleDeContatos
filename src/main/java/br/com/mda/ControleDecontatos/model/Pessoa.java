@@ -2,6 +2,9 @@ package br.com.mda.ControleDecontatos.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_pessoa")
 public class Pessoa {
@@ -14,6 +17,8 @@ public class Pessoa {
     private String CEP;
     private String cidade;
     private String UF;
+    @OneToMany(mappedBy = "pessoa")
+    private List<Contato> contatos = new ArrayList<>();
 
     public Pessoa() {
     }
@@ -73,6 +78,10 @@ public class Pessoa {
 
     public void setUF(String UF) {
         this.UF = UF;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
     }
 
     @Override

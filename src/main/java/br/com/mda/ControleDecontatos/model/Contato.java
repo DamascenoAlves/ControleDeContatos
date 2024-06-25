@@ -4,7 +4,7 @@ import br.com.mda.ControleDecontatos.model.enums.TipoContato;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "tb_contato")
+@Table(name = "tb_contato")
 public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,9 @@ public class Contato {
     private TipoContato tipoContato;
     @Column(nullable = false)
     private String contato;
-
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 
     public Contato() {
     }
