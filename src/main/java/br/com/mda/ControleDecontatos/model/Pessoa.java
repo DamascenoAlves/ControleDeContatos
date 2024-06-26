@@ -16,20 +16,20 @@ public class Pessoa {
     private String endereco;
     private String CEP;
     private String cidade;
-    private String UF;
+    private String uf;
     @OneToMany(mappedBy = "pessoa")
     private List<Contato> contatos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String endereco, String CEP, String cidade, String UF) {
+    public Pessoa(Long id, String nome, String endereco, String CEP, String cidade, String uf) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.CEP = CEP;
         this.cidade = cidade;
-        this.UF = UF;
+        this.uf = uf;
     }
 
     public Long getId() {
@@ -72,12 +72,12 @@ public class Pessoa {
         this.cidade = cidade;
     }
 
-    public String getUF() {
-        return UF;
+    public String getUf() {
+        return uf;
     }
 
-    public void setUF(String UF) {
-        this.UF = UF;
+    public void setUF(String uf) {
+        this.uf = uf;
     }
 
     public List<Contato> getContatos() {
@@ -106,7 +106,7 @@ public class Pessoa {
                 ", endereco='" + endereco + '\'' +
                 ", CEP='" + CEP + '\'' +
                 ", cidade='" + cidade + '\'' +
-                ", UF='" + UF + '\'' +
+                ", UF='" + uf + '\'' +
                 '}';
     }
 }
