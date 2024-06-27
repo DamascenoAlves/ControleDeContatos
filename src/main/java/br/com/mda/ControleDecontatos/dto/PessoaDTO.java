@@ -33,7 +33,7 @@ public class PessoaDTO {
         cidade = client.getCidade();
         uf = client.getUf();
     }
-    
+
 
     public Long getId() {
         return id;

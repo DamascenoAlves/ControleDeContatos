@@ -25,9 +25,6 @@ public class PessoaResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<PessoaDTO> findById(@PathVariable Long id){
        PessoaDTO pessoaDTO = pessoaService.findById(id);
-       if(pessoaDTO.){
-           return ResponseEntity.notFound().build();
-       }
        return ResponseEntity.ok(pessoaDTO);
     }
 }
