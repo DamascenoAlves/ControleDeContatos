@@ -14,7 +14,7 @@ public class Pessoa {
     @Column(nullable = false)
     private String nome;
     private String endereco;
-    private String CEP;
+    private String cep;
     private String cidade;
     private String uf;
     @OneToMany(mappedBy = "pessoa")
@@ -23,11 +23,11 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String endereco, String CEP, String cidade, String uf) {
+    public Pessoa(Long id, String nome, String endereco, String cep, String cidade, String uf) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
-        this.CEP = CEP;
+        this.cep = cep;
         this.cidade = cidade;
         this.uf = uf;
     }
@@ -57,11 +57,11 @@ public class Pessoa {
     }
 
     public String getCEP() {
-        return CEP;
+        return cep;
     }
 
     public void setCEP(String CEP) {
-        this.CEP = CEP;
+        this.cep = CEP;
     }
 
     public String getCidade() {
@@ -104,7 +104,7 @@ public class Pessoa {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", endereco='" + endereco + '\'' +
-                ", CEP='" + CEP + '\'' +
+                ", CEP='" + cep + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", UF='" + uf + '\'' +
                 '}';
