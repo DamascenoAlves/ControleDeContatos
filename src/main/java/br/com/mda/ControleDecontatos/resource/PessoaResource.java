@@ -1,5 +1,6 @@
 package br.com.mda.ControleDecontatos.resource;
 
+import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class PessoaResource {
     private PessoaService pessoaService;
 
     @PostMapping
-    public ResponseEntity<Pessoa> save (@RequestBody Pessoa pessoa) {
-        Pessoa newPessoa = pessoaService.save(pessoa);
-        if(newPessoa == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(newPessoa);
+    public ResponseEntity<PessoaDTO> save (@RequestBody PessoaDTO pessoaDTO) {
+        PessoaDTO newPessoaDTO = pessoaService.save(pessoaDTO);
+        if(newPessoaDTO == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(newPessoaDTO);
     }
 }
