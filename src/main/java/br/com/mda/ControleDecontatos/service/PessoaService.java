@@ -3,8 +3,13 @@ package br.com.mda.ControleDecontatos.service;
 import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.repository.PessoaRepository;
+import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.nio.file.ReadOnlyFileSystemException;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -12,6 +17,7 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Transactional
     public PessoaDTO save(PessoaDTO pessoaDTO){
         //validacao de campos nulos
         if(pessoaDTO.getNome() == null){
@@ -19,6 +25,7 @@ public class PessoaService {
             return null;
         }
 
+        //Instanciação da entidade pessoa
         Pessoa pessoa = new Pessoa();
         copyDtoToEntity(pessoaDTO,pessoa);
 
@@ -32,6 +39,12 @@ public class PessoaService {
         }
     }
 
+    @Transactional (readOnly = true)
+    public PessoaDTO findById(Long id) {
+        PessoaDTO pessoaDTO = new PessoaDTO(pessoaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
+        return pessoaDTO;
+
+    }
 
 
     private void copyDtoToEntity(PessoaDTO dto, Pessoa entity) {
@@ -41,4 +54,6 @@ public class PessoaService {
         entity.setCidade(dto.getCidade());
         entity.setUF(dto.getUf());
     }
+
+
 }

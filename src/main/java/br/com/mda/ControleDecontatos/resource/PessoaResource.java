@@ -5,10 +5,9 @@ import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pessoas")
@@ -21,5 +20,14 @@ public class PessoaResource {
         PessoaDTO newPessoaDTO = pessoaService.save(pessoaDTO);
         if(newPessoaDTO == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(newPessoaDTO);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PessoaDTO> findById(@PathVariable Long id){
+       PessoaDTO pessoaDTO = pessoaService.findById(id);
+       if(pessoaDTO.){
+           return ResponseEntity.notFound().build();
+       }
+       return ResponseEntity.ok(pessoaDTO);
     }
 }
