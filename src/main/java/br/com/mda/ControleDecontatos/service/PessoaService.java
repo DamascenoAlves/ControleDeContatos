@@ -51,16 +51,23 @@ public class PessoaService {
 
     @Transactional(readOnly = true)
     public PessoaMalaDiretaDTO findPessoaMalaDireta(Long id){
-        PessoaMalaDiretaDTO pessoaMalaDiretaDTO = new PessoaMalaDiretaDTO(pessoaRepository.findById(id)
-                                                .orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
+        Pessoa pessoa = pessoaRepository.findPessoaMalaDireta(id);
+        PessoaMalaDiretaDTO pessoaMalaDiretaDTO = new PessoaMalaDiretaDTO(pessoa);
         return pessoaMalaDiretaDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<PessoaDTO> findAllPessoas(){
-        List<Pessoa> pessoaDTOS = pessoaRepository.findAll();
-        return pessoaDTOS.stream().map(x->new PessoaDTO(x)).toList();
+        List<Pessoa> pessoa = pessoaRepository.findAll();
+        return pessoa.stream().map(x->new PessoaDTO(x)).toList();
     }
 
+    public void delete(Long id){
+        if (!pessoaRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        pessoaRepository.deleteById(id);
+    }
 
     private void copyDtoToEntity(PessoaDTO dto, Pessoa entity) {
         entity.setNome(dto.getNome());

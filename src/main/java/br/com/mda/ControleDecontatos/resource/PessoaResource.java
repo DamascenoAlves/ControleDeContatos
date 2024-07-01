@@ -5,6 +5,7 @@ import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +41,11 @@ public class PessoaResource {
     public ResponseEntity<List<PessoaDTO>> findAllPessoas(){
         List<PessoaDTO> pessoaDTOS = pessoaService.findAllPessoas();
         return ResponseEntity.ok(pessoaDTOS);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<?> delete (@PathVariable Long id){
+        pessoaService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
