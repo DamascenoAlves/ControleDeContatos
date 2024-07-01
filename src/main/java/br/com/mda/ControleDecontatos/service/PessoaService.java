@@ -1,6 +1,7 @@
 package br.com.mda.ControleDecontatos.service;
 
 import br.com.mda.ControleDecontatos.dto.PessoaDTO;
+import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.repository.PessoaRepository;
 import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundException;
@@ -41,9 +42,17 @@ public class PessoaService {
 
     @Transactional (readOnly = true)
     public PessoaDTO findById(Long id) {
-        PessoaDTO pessoaDTO = new PessoaDTO(pessoaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
+        PessoaDTO pessoaDTO = new PessoaDTO(pessoaRepository.findById(id)
+                                                .orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
         return pessoaDTO;
 
+    }
+
+    @Transactional(readOnly = true)
+    public PessoaMalaDiretaDTO findPessoaMalaDireta(Long id){
+        PessoaMalaDiretaDTO pessoaMalaDiretaDTO = new PessoaMalaDiretaDTO(pessoaRepository.findById(id)
+                                                .orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
+        return pessoaMalaDiretaDTO;
     }
 
 

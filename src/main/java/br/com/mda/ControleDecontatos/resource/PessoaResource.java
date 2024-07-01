@@ -1,6 +1,7 @@
 package br.com.mda.ControleDecontatos.resource;
 
 import br.com.mda.ControleDecontatos.dto.PessoaDTO;
+import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,11 @@ public class PessoaResource {
     public ResponseEntity<PessoaDTO> findById(@PathVariable Long id){
        PessoaDTO pessoaDTO = pessoaService.findById(id);
        return ResponseEntity.ok(pessoaDTO);
+    }
+
+    @GetMapping(value = "maladireta/{id}")
+    public ResponseEntity<PessoaMalaDiretaDTO> findPessoaMalaDireta(@PathVariable Long id){
+        PessoaMalaDiretaDTO pessoaMalaDiretaDTO = pessoaService.findPessoaMalaDireta(id);
+        return ResponseEntity.ok(pessoaMalaDiretaDTO);
     }
 }
