@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.ReadOnlyFileSystemException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +54,11 @@ public class PessoaService {
         PessoaMalaDiretaDTO pessoaMalaDiretaDTO = new PessoaMalaDiretaDTO(pessoaRepository.findById(id)
                                                 .orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
         return pessoaMalaDiretaDTO;
+    }
+
+    public List<PessoaDTO> findAllPessoas(){
+        List<Pessoa> pessoaDTOS = pessoaRepository.findAll();
+        return pessoaDTOS.stream().map(x->new PessoaDTO(x)).toList();
     }
 
 

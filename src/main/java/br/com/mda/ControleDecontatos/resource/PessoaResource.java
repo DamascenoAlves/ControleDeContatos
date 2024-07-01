@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,5 +34,11 @@ public class PessoaResource {
     public ResponseEntity<PessoaMalaDiretaDTO> findPessoaMalaDireta(@PathVariable Long id){
         PessoaMalaDiretaDTO pessoaMalaDiretaDTO = pessoaService.findPessoaMalaDireta(id);
         return ResponseEntity.ok(pessoaMalaDiretaDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PessoaDTO>> findAllPessoas(){
+        List<PessoaDTO> pessoaDTOS = pessoaService.findAllPessoas();
+        return ResponseEntity.ok(pessoaDTOS);
     }
 }
