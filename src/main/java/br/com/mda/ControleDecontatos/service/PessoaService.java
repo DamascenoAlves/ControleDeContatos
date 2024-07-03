@@ -5,6 +5,7 @@ import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.repository.PessoaRepository;
 import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class PessoaService {
     @Transactional (readOnly = true)
     public PessoaDTO findById(Long id) {
         PessoaDTO pessoaDTO = new PessoaDTO(pessoaRepository.findById(id)
-                                                .orElseThrow(()-> new ResourceNotFoundException("Recurso nao encontrado")));
+                                                .orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado - ID: "+ id)));
         return pessoaDTO;
 
     }
@@ -64,10 +65,23 @@ public class PessoaService {
 
     public void delete(Long id){
         if (!pessoaRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Recurso não encontrado - ID: "+ id);
         }
         pessoaRepository.deleteById(id);
     }
+
+    @Transactional
+    public PessoaDTO update (Long id, PessoaDTO pessoaDTO){
+        try{
+            Pessoa entity = pessoaRepository.getReferenceById(id);
+            copyDtoToEntity(pessoaDTO,entity);
+            entity = pessoaRepository.save(entity);
+            return new PessoaDTO(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado - ID: "+ id);
+        }
+    }
+
 
     private void copyDtoToEntity(PessoaDTO dto, Pessoa entity) {
         entity.setNome(dto.getNome());

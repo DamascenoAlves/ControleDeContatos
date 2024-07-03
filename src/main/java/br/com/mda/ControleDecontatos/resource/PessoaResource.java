@@ -43,9 +43,15 @@ public class PessoaResource {
         return ResponseEntity.ok(pessoaDTOS);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete (@PathVariable Long id){
         pessoaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping (value = "/{id}")
+    public ResponseEntity<PessoaDTO> update (@PathVariable Long id, @RequestBody PessoaDTO pessoaDTO){
+        pessoaDTO = pessoaService.update(id, pessoaDTO);
+        return ResponseEntity.ok(pessoaDTO);
     }
 }
