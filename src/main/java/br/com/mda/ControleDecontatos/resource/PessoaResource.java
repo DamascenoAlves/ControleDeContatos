@@ -2,7 +2,6 @@ package br.com.mda.ControleDecontatos.resource;
 
 import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
-import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pessoas")
