@@ -20,7 +20,7 @@ public class PessoaResource {
     public ResponseEntity<PessoaDTO> save (@RequestBody PessoaDTO pessoaDTO) {
         PessoaDTO newPessoaDTO = pessoaService.save(pessoaDTO);
         if(newPessoaDTO == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(newPessoaDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPessoaDTO);
     }
 
     @GetMapping(value = "/{id}")
