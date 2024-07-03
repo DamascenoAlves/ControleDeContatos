@@ -1,9 +1,11 @@
 package br.com.mda.ControleDecontatos.service;
 
 import br.com.mda.ControleDecontatos.dto.ContatoDTO;
+import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.model.Contato;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.repository.ContatoRepository;
+import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +40,14 @@ public class ContatoService {
             System.out.println("ERR: erro ao inserir o produto" + contato.toString()+ ": " + e.getMessage());
             return null;
         }
+    }
+
+    @Transactional (readOnly = true)
+    public ContatoDTO findById(Long id) {
+        ContatoDTO contatoDTO = new ContatoDTO(contatoRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado - ID: "+ id)));
+        return contatoDTO;
+
     }
 
     private void copyDtoToEntity(ContatoDTO dto, Contato entity) {
