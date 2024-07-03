@@ -1,6 +1,7 @@
 package br.com.mda.ControleDecontatos.service;
 
 import br.com.mda.ControleDecontatos.dto.ContatoDTO;
+import br.com.mda.ControleDecontatos.dto.ContatoMinDTO;
 import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.model.Contato;
 import br.com.mda.ControleDecontatos.model.Pessoa;
@@ -9,6 +10,8 @@ import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundExceptio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ContatoService {
@@ -47,6 +50,12 @@ public class ContatoService {
         ContatoDTO contatoDTO = new ContatoDTO(contatoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado - ID: "+ id)));
         return contatoDTO;
+    }
+
+    @Transactional
+    public List<ContatoMinDTO> findContatosByPessoaId(Long id){
+        List<Contato> contatos = contatoRepository.findContatosByPessoaId(id);
+        return contatos.stream().map(x -> new ContatoMinDTO(x)).toList();
 
     }
 
