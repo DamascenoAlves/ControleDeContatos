@@ -2,8 +2,6 @@ package br.com.mda.ControleDecontatos.dto;
 
 import br.com.mda.ControleDecontatos.model.Pessoa;
 
-import java.util.Optional;
-
 public class PessoaDTO {
 
     private Long id;

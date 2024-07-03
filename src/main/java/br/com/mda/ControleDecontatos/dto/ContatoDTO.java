@@ -1,8 +1,7 @@
 package br.com.mda.ControleDecontatos.dto;
 
-import br.com.mda.ControleDecontatos.model.Pessoa;
+import br.com.mda.ControleDecontatos.model.Contato;
 import br.com.mda.ControleDecontatos.model.enums.TipoContato;
-import jakarta.persistence.*;
 
 public class ContatoDTO {
 
@@ -10,14 +9,25 @@ public class ContatoDTO {
     private TipoContato tipoContato;
     private String contato;
 
+    private PessoaDTO pessoa;
+
     public ContatoDTO() {
     }
 
-    public ContatoDTO(Long id, TipoContato tipoContato, String contato) {
+    public ContatoDTO(Long id, TipoContato tipoContato, String contato, PessoaDTO pessoaDTO) {
         this.id = id;
         this.tipoContato = tipoContato;
         this.contato = contato;
+        this.pessoa = pessoaDTO;
     }
+
+    public ContatoDTO(Contato contato) {
+        this.id = contato.getId();
+        this.tipoContato = contato.getTipoContato();
+        this.contato = contato.getContato();
+        this.pessoa = new PessoaDTO(contato.getPessoa());
+    }
+
 
     public Long getId() {
         return id;
@@ -41,6 +51,14 @@ public class ContatoDTO {
 
     public void setContato(String contato) {
         this.contato = contato;
+    }
+
+    public PessoaDTO getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoaDTO(PessoaDTO pessoaDTO) {
+        this.pessoa = pessoa;
     }
 
     @Override
