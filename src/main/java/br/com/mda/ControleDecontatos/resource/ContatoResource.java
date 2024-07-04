@@ -33,7 +33,7 @@ public class ContatoResource {
         return ResponseEntity.ok(contatoDTO);
     }
 
-    @GetMapping("/pessoa/{idPessoa}")
+    @GetMapping(value = "/pessoa/{idPessoa}")
     public ResponseEntity<List<ContatoMinDTO>> findContatosByPessoaId (@PathVariable Long idPessoa){
         List<ContatoMinDTO> contatos = contatoService.findContatosByPessoaId(idPessoa);
         return ResponseEntity.ok(contatos);
@@ -45,4 +45,9 @@ public class ContatoResource {
                 return ResponseEntity.ok(contatoDTO);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete (@PathVariable Long id) {
+        contatoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

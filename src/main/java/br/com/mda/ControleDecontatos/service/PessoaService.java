@@ -63,6 +63,7 @@ public class PessoaService {
         return pessoa.stream().map(x->new PessoaDTO(x)).toList();
     }
 
+    @Transactional
     public void delete(Long id){
         if (!pessoaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Recurso não encontrado - ID: "+ id);

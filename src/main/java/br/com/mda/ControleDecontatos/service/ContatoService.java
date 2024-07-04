@@ -76,6 +76,14 @@ public class ContatoService {
         }
     }
 
+    @Transactional
+    public void delete(Long id){
+        if (!contatoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado - ID: "+ id);
+        }
+        contatoRepository.deleteById(id);
+    }
+
     private void copyDtoToEntity(ContatoDTO dto, Contato entity) {
         entity.setContato(dto.getContato());
         entity.setTipoContato(dto.getTipoContato());
