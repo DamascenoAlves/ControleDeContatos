@@ -7,21 +7,24 @@ public class ContatoMinDTO {
     private Long id;
     private TipoContato tipoContato;
     private String contato;
+    private Long pessoaId;
 
 
     public ContatoMinDTO() {
     }
 
-    public ContatoMinDTO(Long id, TipoContato tipoContato, String contato) {
+    public ContatoMinDTO(Long id, TipoContato tipoContato, String contato, Long pessoaId) {
         this.id = id;
         this.tipoContato = tipoContato;
         this.contato = contato;
+        this.pessoaId = pessoaId;
     }
 
     public ContatoMinDTO(Contato contato) {
         this.id = contato.getId();
         this.tipoContato = contato.getTipoContato();
         this.contato = contato.getContato();
+        this.pessoaId = contato.getPessoa().getId();
     }
 
 
@@ -49,6 +52,13 @@ public class ContatoMinDTO {
         this.contato = contato;
     }
 
+    public Long getPessoaId() {
+        return pessoaId;
+    }
+
+    public void setPessoaId(Long pessoaId) {
+        this.pessoaId = pessoaId;
+    }
 
     @Override
     public String toString() {

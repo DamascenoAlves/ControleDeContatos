@@ -2,11 +2,12 @@ package br.com.mda.ControleDecontatos.service;
 
 import br.com.mda.ControleDecontatos.dto.ContatoDTO;
 import br.com.mda.ControleDecontatos.dto.ContatoMinDTO;
-import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.model.Contato;
 import br.com.mda.ControleDecontatos.model.Pessoa;
 import br.com.mda.ControleDecontatos.repository.ContatoRepository;
+import br.com.mda.ControleDecontatos.repository.PessoaRepository;
 import br.com.mda.ControleDecontatos.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ public class ContatoService {
 
     @Autowired
     private ContatoRepository contatoRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     @Transactional
     public ContatoDTO save(ContatoDTO contatoDTO){
@@ -38,6 +42,7 @@ public class ContatoService {
         //gravar
         try{
             contato = contatoRepository.save(contato);
+            contato.setPessoa(pessoaRepository.getReferenceById(contato.getPessoa().getId()));
             return new ContatoDTO(contato);
         }catch (Exception e){
             System.out.println("ERR: erro ao inserir o produto" + contato.toString()+ ": " + e.getMessage());
@@ -56,11 +61,22 @@ public class ContatoService {
     public List<ContatoMinDTO> findContatosByPessoaId(Long id){
         List<Contato> contatos = contatoRepository.findContatosByPessoaId(id);
         return contatos.stream().map(x -> new ContatoMinDTO(x)).toList();
+    }
 
+    @Transactional
+    public ContatoDTO update(Long id, ContatoDTO contatoDTO){
+        try{
+            Contato entity = contatoRepository.getReferenceById(id);
+            copyDtoToEntity(contatoDTO,entity);
+            entity = contatoRepository.save(entity);
+            entity.setPessoa(pessoaRepository.getReferenceById(entity.getPessoa().getId()));
+            return new ContatoDTO(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado - ID: "+ id);
+        }
     }
 
     private void copyDtoToEntity(ContatoDTO dto, Contato entity) {
-        entity.setId(dto.getId());
         entity.setContato(dto.getContato());
         entity.setTipoContato(dto.getTipoContato());
         Pessoa pessoa = new Pessoa();

@@ -18,10 +18,12 @@ public class ContatoResource {
     @Autowired
     private ContatoService contatoService;
 
+
     @PostMapping
     public ResponseEntity<ContatoDTO> save (@RequestBody ContatoDTO contatoDTO) {
         ContatoDTO newContatoDTO = contatoService.save(contatoDTO);
         if(newContatoDTO == null) return ResponseEntity.notFound().build();
+
         return ResponseEntity.status(HttpStatus.CREATED).body(newContatoDTO);
     }
 
@@ -31,9 +33,16 @@ public class ContatoResource {
         return ResponseEntity.ok(contatoDTO);
     }
 
-    @GetMapping("/pessoa/{id}")
-    public ResponseEntity<List<ContatoMinDTO>> findContatosByPessoaId (@PathVariable Long id){
-        List<ContatoMinDTO> contatos = contatoService.findContatosByPessoaId(id);
+    @GetMapping("/pessoa/{idPessoa}")
+    public ResponseEntity<List<ContatoMinDTO>> findContatosByPessoaId (@PathVariable Long idPessoa){
+        List<ContatoMinDTO> contatos = contatoService.findContatosByPessoaId(idPessoa);
         return ResponseEntity.ok(contatos);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ContatoDTO> update (@PathVariable Long id, @RequestBody ContatoDTO contatoDTO){
+                contatoDTO = contatoService.update(id,contatoDTO);
+                return ResponseEntity.ok(contatoDTO);
+    }
+
 }
