@@ -1,10 +1,12 @@
 package br.com.mda.ControleDecontatos.dto;
 
 import br.com.mda.ControleDecontatos.model.Pessoa;
+import jakarta.validation.constraints.NotBlank;
 
 public class PessoaDTO {
 
     private Long id;
+    @NotBlank (message = "Campo requerido")
     private String nome;
     private String endereco;
     private String cep;

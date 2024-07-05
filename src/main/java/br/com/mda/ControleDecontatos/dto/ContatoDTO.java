@@ -2,11 +2,17 @@ package br.com.mda.ControleDecontatos.dto;
 
 import br.com.mda.ControleDecontatos.model.Contato;
 import br.com.mda.ControleDecontatos.model.enums.TipoContato;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class ContatoDTO {
 
     private Long id;
+    @NotNull(message = "Campo requerido")
     private TipoContato tipoContato;
+    @Size(min = 10, max = 11, message = "Necessário inserir no formato DDD(2 caracteres) + número telefônico(8 ou 9 caracteres)")
+    @NotBlank(message = "Campo requerido")
     private String contato;
 
     private PessoaDTO pessoa;

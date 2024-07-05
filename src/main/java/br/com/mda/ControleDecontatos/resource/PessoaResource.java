@@ -4,6 +4,7 @@ import br.com.mda.ControleDecontatos.dto.PessoaDTO;
 import br.com.mda.ControleDecontatos.dto.PessoaMalaDiretaDTO;
 import br.com.mda.ControleDecontatos.service.PessoaService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class PessoaResource {
 
     @Operation(summary = "Grava os registros de uma pessoa")
     @PostMapping
-    public ResponseEntity<PessoaDTO> save (@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaDTO> save (@Valid @RequestBody PessoaDTO pessoaDTO) {
         PessoaDTO newPessoaDTO = pessoaService.save(pessoaDTO);
         if(newPessoaDTO == null) return ResponseEntity.notFound().build();
         return ResponseEntity.status(HttpStatus.CREATED).body(newPessoaDTO);
@@ -55,7 +56,7 @@ public class PessoaResource {
 
     @Operation(summary = "Atualiza o registro de uma pessoa. Validação por ID")
     @PutMapping (value = "/{id}")
-    public ResponseEntity<PessoaDTO> update (@PathVariable Long id, @RequestBody PessoaDTO pessoaDTO){
+    public ResponseEntity<PessoaDTO> update (@PathVariable Long id,@Valid @RequestBody PessoaDTO pessoaDTO){
         pessoaDTO = pessoaService.update(id, pessoaDTO);
         return ResponseEntity.ok(pessoaDTO);
     }

@@ -25,16 +25,6 @@ public class ContatoService {
 
     @Transactional
     public ContatoDTO save(ContatoDTO contatoDTO){
-        //validacao de campos nulos
-        if(contatoDTO.getTipoContato() == null){
-            System.out.println("Nome vazio.");
-            return null;
-        }
-        if(contatoDTO.getContato() == null){
-            System.out.println("Nome vazio.");
-            return null;
-        }
-
         //Instanciação da entidade pessoa
         Contato contato = new Contato();
         copyDtoToEntity(contatoDTO,contato);

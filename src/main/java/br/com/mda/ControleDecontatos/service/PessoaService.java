@@ -22,12 +22,6 @@ public class PessoaService {
 
     @Transactional
     public PessoaDTO save(PessoaDTO pessoaDTO){
-        //validacao de campos nulos
-        if(pessoaDTO.getNome() == null){
-            System.out.println("Nome vazio.");
-            return null;
-        }
-
         //Instanciação da entidade pessoa
         Pessoa pessoa = new Pessoa();
         copyDtoToEntity(pessoaDTO,pessoa);
